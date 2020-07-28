@@ -1,0 +1,77 @@
+version: '3'
+services:
+    #Backend-Adonisjs
+    api:
+        container_name: api
+        depends_on:
+            - saipos-mysql
+        build:
+            context: ./api-todo/
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - "3333:3333"
+        volumes:
+            - './api-todo/:/app:delegated'
+            - '/app/node_modules'
+        networks:
+            - api-network
+            - frontend-network
+    #Frontend-Angular
+    frontend-angular:
+        container_name: frontend-angular
+        depends_on:
+            - api
+        build:
+            context: ./frontend-todo/
+            dockerfile: Dockerfile
+        volumes:
+            - './frontend-todo/:/app:delegated'
+            - '/app/node_modules'
+        ports:
+            - '4200:4200'
+        networks:
+            - frontend-network
+    #Frontend-Angularjs
+    frontend-angularjs:
+        container_name: frontend-angularjs
+        depends_on:
+            - api
+        build:
+            context: ./frontend-todo-angularjs/
+            dockerfile: Dockerfile
+        volumes:
+            - './frontend-todo-angularjs/:/app:delegated'
+            - '/app/node_modules'
+        ports:
+            - '8080:8080'
+        networks:
+            - frontend-network
+    #MySQL Service
+    saipos-mysql:
+        image: mysql:5.7
+        container_name: saipos-mysql
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: saipos
+            MYSQL_USER: saipos
+            MYSQL_PASSWORD: saipos
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - dbdata:/var/lib/mysql/:delegated
+            - ./db/my.cnf:/etc/mysql/my.cnf:delegated
+        networks:
+            - api-network
+#Docker Networks
+networks:
+    api-network:
+        driver: bridge
+    frontend-network:
+        driver: bridge
+#Volumes
+volumes:
+    dbdata:
+        driver: local

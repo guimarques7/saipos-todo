@@ -1,0 +1,20 @@
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+body {
+  padding-top: 20px;
+}
+
+.logo { max-height: 48px; }
+
+#toast { position: fixed; top: 0px; right: 0px; }
+
+.text-white-50 { color: rgba(255, 255, 255, .5); }
+
+.bg-saipos { background-color: #5ca2df; }
+
+.lh-100 { line-height: 1; }
+.lh-125 { line-height: 1.25; }
+.lh-150 { line-height: 1.5; }

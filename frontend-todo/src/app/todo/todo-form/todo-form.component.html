@@ -1,0 +1,49 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+	<h6 class="border-bottom border-gray pb-2 mb-0">Add New Task</h6>
+	<form name="todoForm" class="needs-validation" [formGroup]="todoForm" (keydown.enter)="$event.preventDefault()"
+		(ngSubmit)="save()" [ngClass]="{'was-validated': todoForm.touched && todoForm.invalid}">
+		<div class="row">
+			<div class="col-md-6 mb-3 mt-3">
+				<label for="responsible">Responsible</label>
+				<input type="text" [formControlName]="'responsible'" class="form-control form-control-sm"
+					id="responsible" placeholder="" value="" required>
+				<div class="invalid-feedback">
+					Please enter a task's responsible name.
+				</div>
+			</div>
+			<div class="col-md-6 mb-3 mt-3">
+				<label for="email">Email</label>
+				<input type="email" [formControlName]="'email'" class="form-control form-control-sm" id="email"
+					placeholder="you@example.com">
+				<div class="invalid-feedback">
+					Please enter a valid email address.
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col mb-3">
+				<label for="description">Task description</label>
+				<textarea [formControlName]="'description'" name="description" class="form-control form-control-sm"
+					id="description" rows="2" required></textarea>
+				<div class="invalid-feedback">
+					Please enter a task's description.
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-info" type="button" *ngIf="canAddRandomTasks" (click)="addRandomTodos()"
+					[disabled]="isSavingRandomTasks">
+					<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+						*ngIf="isSavingRandomTasks"></span>
+					<span class="sr-only">Loading...</span> Add 3 Tasks
+				</button>
+				<button class="btn btn-success float-right" type="submit" [disabled]="isSavingTask || todoForm.invalid">
+					<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+						*ngIf="isSavingTask"></span>
+					<span class="sr-only">Loading...</span> Create Task!
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

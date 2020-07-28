@@ -1,0 +1,41 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Add New Task</h6>
+    <form name="todoForm" class="needs-validation" ng-submit="ctrl.addTodo(todoForm.$valid)" ng-class="{'was-validated': ctrl.formSubmited}" novalidate>
+        <div class="row">
+            <div class="col-md-6 mb-3 mt-3">
+                <label for="responsible">Responsible</label>
+                <input type="text" ng-model="ctrl.todo.responsible" ng-disabled="ctrl.isSavingTask" class="form-control form-control-sm" id="responsible"
+                    placeholder="" value="" required>
+                <div class="invalid-feedback" >
+                    Please enter a task's responsible name.
+                </div>
+            </div>
+            <div class="col-md-6 mb-3 mt-3">
+                <label for="email">Email</label>
+                <input type="email" ng-model="ctrl.todo.email" ng-disabled="ctrl.isSavingTask" class="form-control form-control-sm" id="email"
+                    placeholder="you@example.com" >
+                <div class="invalid-feedback">
+                    Please enter a valid email address.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-3">
+                <label for="description">Task description</label>
+                <textarea ng-model="ctrl.todo.description" ng-disabled="ctrl.isSavingTask" name="description" class="form-control form-control-sm" id="description" rows="2"
+                    required></textarea>
+                <div class="invalid-feedback">
+                    Please enter a task's description.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-success float-right" type="submit" ng-disabled="ctrl.isSavingTask">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ng-show="ctrl.isSavingTask"></span>
+                    <span class="sr-only">Loading...</span> Create Task!
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

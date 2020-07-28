@@ -1,0 +1,23 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+	<h6 class="border-bottom border-gray pb-2 mb-0">{{title}}</h6>
+	<div *ngFor="let todo of todoList;" class="media text-muted pt-3">
+		<div
+			class="d-flex justify-content-between align-items-center media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+			<div class="d-block">
+				<div class="w-100">
+					<strong class="text-gray-dark">{{todo.responsible}} / {{todo.email}}</strong>
+				</div>
+				<span class="d-block">{{todo.description}}</span>
+			</div>
+			<div class="d-block">
+				<button type="button" class="btn btn-info" (click)="execute(todo.id)">{{ buttonTitle }}</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-3" *ngIf="showRemaining">
+		<div class="col">
+			<span class="todo-count float-right">{{ todoList.length | i18nPlural: messageRemaining }}</span>
+		</div>
+	</div>
+</div>

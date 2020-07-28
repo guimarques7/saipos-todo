@@ -1,0 +1,84 @@
+<div id="toast" class="mr-3 mt-3">
+    <div uib-alert ng-repeat="alert in vm.todoService.alerts" dismiss-on-timeout="5000" style="position: relative;" ng-class="'alert-' + (alert.type || 'warning')"
+    close="vm.todoService.closeAlert($index)">{{alert.msg}}</div>
+</div>
+
+<div ng-include src="'layout/header.html'"></div>
+
+<div ng-include src="'todo/todo-form.html'"></div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">ToDo Tasks</h6>
+    <div ng-repeat="todo in vm.todoList | filter: {concluded: false}" class="media text-muted pt-3">
+        <div
+            class="d-flex justify-content-between align-items-center media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <div class="d-block">
+                <div class="w-100">
+                    <strong class="text-gray-dark">{{todo.responsible}} / {{todo.email}}</strong>
+                </div>
+                <span class="d-block">{{todo.description}}</span>
+            </div>
+            <div class="d-block">
+                <button type="button" class="btn btn-info" ng-click="vm.markDone(todo.id)">Done</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3" ng-show="vm.remainingCount == 0" ng-cloak>
+        
+        <div class="col d-flex align-items-center">
+            <button class="btn btn-success float-right" type="button" ng-click="vm.addRandomTodos()" ng-disabled="ctrl.isSavingRandomTasks">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ng-show="ctrl.isSavingRandomTasks"></span>
+                <span class="sr-only">Loading...</span> Add 3 Tasks
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3" ng-show="vm.remainingCount > 0" ng-cloak>
+        <div class="col">
+            <span class="todo-count float-right"><strong>{{vm.remainingCount}}</strong>
+                <ng-pluralize count="vm.remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Concluded Tasks</h6>
+    <div ng-repeat="todo in vm.todoList | filter: {concluded: true}" class="media text-muted pt-3">
+        <div
+            class="d-flex justify-content-between align-items-center media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <div class="d-block">
+                <div class="w-100">
+                    <strong class="text-gray-dark">{{todo.responsible}} / {{todo.email}}</strong>
+                </div>
+                <span class="d-block">{{todo.description}}</span>
+            </div>
+            <div class="d-block">
+                <button type="button" class="btn btn-info" ng-click="vm.markUnDone(todo.id)">Undone</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-info" ng-click="vm.markUnDone(todo.id)">Undone</button>
+
+<script type="text/ng-template" id="modal-undone.html">
+    <div class="modal-header">
+        <h5 class="modal-title" id="markUndoneModalLabel">Are you sure to mark this task as undone?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="password" class="col-form-label">Supervisor's password:</label>
+                <input type="password" class="form-control form-control-sm" ng-model="modalCtrl.supervisorPass" id="password"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="modalCtrl.cancel()">Cancel</button>
+        <button type="button" class="btn btn-success" ng-click="modalCtrl.save()">I'm sure!</button>
+    </div>
+</script>
