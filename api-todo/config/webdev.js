@@ -5,7 +5,7 @@ const Env = use('Env')
 
 module.exports = {
 
-  supervisorPass: Env.get('SAIPOS_PASSWORD', 'TrabalheNaSaipos'),
+  adminToken: Env.get('ADMIN_TOKEN', '123456'),
 
   mailBoxUrl: Env.get('MAILBOX_URL', 'https://apilayer.net/api/check'),
 

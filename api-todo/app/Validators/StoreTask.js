@@ -1,11 +1,11 @@
 'use strict'
 
 class StoreTask {
-  static rules () {
+  get rules () {
     return {
-      'description': 'required',
-      'responsible': 'required',
-      'email': 'required|email'
+      description: 'required',
+      responsible: 'required',
+      email: 'required|email'
     }
   }
 

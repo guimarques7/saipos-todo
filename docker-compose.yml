@@ -4,7 +4,7 @@ services:
     api:
         container_name: api
         depends_on:
-            - saipos-mysql
+            - webdev-mysql
         build:
             context: ./api-todo/
             dockerfile: Dockerfile
@@ -18,47 +18,47 @@ services:
             - api-network
             - frontend-network
     #Frontend-Angular
-    frontend-angular:
-        container_name: frontend-angular
-        depends_on:
-            - api
-        build:
-            context: ./frontend-todo/
-            dockerfile: Dockerfile
-        volumes:
-            - './frontend-todo/:/app:delegated'
-            - '/app/node_modules'
-        ports:
-            - '4200:4200'
-        networks:
-            - frontend-network
-    #Frontend-Angularjs
-    frontend-angularjs:
-        container_name: frontend-angularjs
-        depends_on:
-            - api
-        build:
-            context: ./frontend-todo-angularjs/
-            dockerfile: Dockerfile
-        volumes:
-            - './frontend-todo-angularjs/:/app:delegated'
-            - '/app/node_modules'
-        ports:
-            - '8080:8080'
-        networks:
-            - frontend-network
+    # frontend-angular:
+    #     container_name: frontend-angular
+    #     depends_on:
+    #         - api
+    #     build:
+    #         context: ./frontend-todo/
+    #         dockerfile: Dockerfile
+    #     volumes:
+    #         - './frontend-todo/:/app:delegated'
+    #         - '/app/node_modules'
+    #     ports:
+    #         - '4200:4200'
+    #     networks:
+    #         - frontend-network
+    # #Frontend-Angularjs
+    # frontend-angularjs:
+    #     container_name: frontend-angularjs
+    #     depends_on:
+    #         - api
+    #     build:
+    #         context: ./frontend-todo-angularjs/
+    #         dockerfile: Dockerfile
+    #     volumes:
+    #         - './frontend-todo-angularjs/:/app:delegated'
+    #         - '/app/node_modules'
+    #     ports:
+    #         - '8080:8080'
+    #     networks:
+    #         - frontend-network
     #MySQL Service
-    saipos-mysql:
+    webdev-mysql:
         image: mysql:5.7
-        container_name: saipos-mysql
+        container_name: webdev-mysql
         restart: unless-stopped
         tty: true
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: saipos
-            MYSQL_USER: saipos
-            MYSQL_PASSWORD: saipos
+            MYSQL_DATABASE: webdev
+            MYSQL_USER: webdev
+            MYSQL_PASSWORD: webdev
             MYSQL_ROOT_PASSWORD: root
         volumes:
             - dbdata:/var/lib/mysql/:delegated

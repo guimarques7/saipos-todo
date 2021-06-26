@@ -6,10 +6,10 @@ const Config = use('Config')
 const JsonException = use('App/Exceptions/JsonException')
 const axios = use('axios')
 
-const saiposPassword = Config.get('saipos.supervisorPass')
-const mailBoxKey = Config.get('saipos.mailBoxKey')
-const mailBoxUrl = Config.get('saipos.mailBoxUrl')
-const catFactUrl = Config.get('saipos.catFactUrl')
+const adminToken = Config.get('webdev.adminToken')
+const mailBoxKey = Config.get('webdev.mailBoxKey')
+const mailBoxUrl = Config.get('webdev.mailBoxUrl')
+const catFactUrl = Config.get('webdev.catFactUrl')
 
 let validatingTask
 let validatingPassword
@@ -77,7 +77,7 @@ class TaskService {
 	}
 
 	validateTaskToBeUndone() {
-		if (validatingPassword !== saiposPassword) {
+		if (validatingPassword !== adminToken) {
 			this.handleError('You do not have permission to mark a task as unconcluded.', 401)
 		}
 

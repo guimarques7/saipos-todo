@@ -22,14 +22,14 @@ Route.get('/', (req, res) => {
 
 Route.group(() => {
 	Route.get('/', () => {
-		return { message: 'Saipos ToDo API Challenge by Guilherme Marques' }
+		return { message: 'online' }
 	})
 
 	Route.resource('tasks', 'TaskController')
-		.validator((new Map([
+		.validator(new Map([
 			[['tasks.store'], ['StoreTask']],
 			[['tasks.update'], ['UpdateTask']]
-		])))
+		]))
 
 	Route.post('randogs', 'TaskController.randomTasks')
 

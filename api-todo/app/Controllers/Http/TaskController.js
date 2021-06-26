@@ -78,7 +78,7 @@ class TaskController {
 
 		Object.assign(task, request.only(['concluded']))
 
-		service.validateTaskUpdate(task, request.header('saipos-pass'))
+		service.validateTaskUpdate(task, request.header('x-admin-token'))
 
 		await task.save()
 		await task.reload()

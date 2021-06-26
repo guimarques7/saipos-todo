@@ -16,7 +16,7 @@ test('when a task is concluded the done number is incremented', async ({ assert,
 
 	const response = await client
 		.put('/v1/tasks/1')
-		.header('saipos-pass', 'TrabalheNaSaipos')
+		.header('x-admin-token', '123456')
 		.send(taskData)
 		.end()
 
@@ -46,7 +46,7 @@ test('only supervisor can mark a task as unconcluded', async ({ assert, client }
 
 	const response = await client
 		.put(`/v1/tasks/${task.id}`)
-		.header('saipos-pass', 'WrongPassword')
+		.header('x-admin-token', 'WrongPassword')
 		.send(taskData)
 		.end()
 
@@ -72,7 +72,7 @@ test('cannot mark a task as unconcluded more twice', async ({ assert, client }) 
 
 	const response = await client
 		.put(`/v1/tasks/${taskId}`)
-		.header('saipos-pass', 'TrabalheNaSaipos')
+		.header('x-admin-token', '123456')
 		.send(taskData)
 		.end()
 
